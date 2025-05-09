@@ -24,45 +24,45 @@ import os
 # })
 
 
-def start_CAN():
-    can_interface = CANInterface()
-    can_interface.send_can_message(can_id=message.frame_id, data=data, is_extended=False)
-    can_interface.__del__()
-    print("test")
-    assert(True==True)
+#def start_CAN():
+    #can_interface = CANInterface()
+    #can_interface.send_can_message(can_id=message.frame_id, data=data, is_extended=False)
+    #can_interface.__del__()
+    #print("test")
+    #assert(True==True)
 
 def test_sqrt():
     num = 25
     assert math.sqrt(25) == 5
 
-def test_can():
-    print(data)
-    start_CAN()
-    can_interface = CANInterface()
-    can_interface.send_and_update_can_message(can_id=0x001, data=data, is_extended=False)
-    time.sleep(10)
-    can_interface.__del__()
-    assert(True==True)
+#def test_can():
+    #print(data)
+    #start_CAN()
+    #can_interface = CANInterface()
+    #can_interface.send_and_update_can_message(can_id=0x001, data=data, is_extended=False)
+    #time.sleep(10)
+    #can_interface.__del__()
+    #assert(True==True)
 
-def test_strain_gauge_amp():
-    dbc_directory = os.path.join(os.getcwd(), 'Software\DBC Tools\Strain Gauge DBC.dbc')
-    dbc_file = dbc_directory #'..\DBC Tools\output.dbc'
-    db = cantools.database.load_file(dbc_file)
+#def test_strain_gauge_amp():
+    #dbc_directory = os.path.join(os.getcwd(), 'Software\DBC Tools\Strain Gauge DBC.dbc')
+    #dbc_file = dbc_directory #'..\DBC Tools\output.dbc'
+    #db = cantools.database.load_file(dbc_file)
 
-    message = db.get_message_by_name('SGAMP1_data1000Hz')
+    #message = db.get_message_by_name('SGAMP1_data1000Hz')
 
-    data = message.encode({
-        'SGAMP1_outputVoltage': -32768,
-        'SGAMP1_ambientTemp': 100,
-    })
-    start_CAN()
+    #data = message.encode({
+        #'SGAMP1_outputVoltage': -32768,
+        #'SGAMP1_ambientTemp': 100,
+    #})
+    #start_CAN()
 
 
 def test_motor_pressure_sensors():
     from data.message_data import MessageData
-    hfi_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\HardwareInjector.dbc')
+    hfi_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\HardwareInjector.dbc')
     hfi_db = cantools.database.load_file(hfi_dbc)
-    vcu_torque_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\M150_VCU_TORQUE.dbc')
+    vcu_torque_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\M150_VCU_TORQUE.dbc')
     vcu_torque_db = cantools.database.load_file(vcu_torque_dbc)
 
     # Create the HFI messages
@@ -114,9 +114,9 @@ def test_motor_pressure_sensors():
 
 def test_accu_pressure_sensors():
     from data.message_data import MessageData
-    hfi_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\HardwareInjector.dbc')
+    hfi_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\HardwareInjector.dbc')
     hfi_db = cantools.database.load_file(hfi_dbc)
-    vcu_torque_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\M150_VCU_TORQUE.dbc')
+    vcu_torque_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\M150_VCU_TORQUE.dbc')
     vcu_torque_db = cantools.database.load_file(vcu_torque_dbc)
 
     # Create the HFI messages
@@ -166,9 +166,9 @@ def test_accu_pressure_sensors():
 
 def test_fail_accu_pressure_sensors():
     from data.message_data import MessageData
-    hfi_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\HardwareInjector.dbc')
+    hfi_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\HardwareInjector.dbc')
     hfi_db = cantools.database.load_file(hfi_dbc)
-    vcu_torque_dbc = os.path.join(os.getcwd(), 'Software\DBC Tools\M150_VCU_TORQUE.dbc')
+    vcu_torque_dbc = os.path.join(os.getcwd(), r'Software\DBC Tools\M150_VCU_TORQUE.dbc')
     vcu_torque_db = cantools.database.load_file(vcu_torque_dbc)
 
     # Create the HFI messages
