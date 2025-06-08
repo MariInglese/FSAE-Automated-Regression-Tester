@@ -86,10 +86,97 @@ def test_regen_state_det_1():
     value = can_interface.get_signal_from_dictionary('vcu_regenState')
     time.sleep(1)
     print(value) 
-        
+
+    try: 
+        assert(value == 0)
+    except AssertionError: 
+        print("-----------------Part 2 failed, continuing to Part 3-------------------")
+
+    ############################### Part 3 #############################
+
+    # Update HFI messages
+    helper_functions.update_hfi_message(hfi_command_mux0, 3, 0) 
+    helper_functions.update_hfi_message(hfi_command_mux0, 4, 0) 
+
+    # Add and send HIF messages 
+    can_interface.add_message_100Hz(hfi_command_mux0)
+    can_interface.add_message_100Hz(hfi_command_mux1)
+    print(hfi_command_mux0)
+    print(hfi_command_mux1)
+
+    # Wait 
+    time.sleep(1)
+
+    # Test and compare
+    can_interface.start_receive_and_sort(can_db=vcu_torque_db, timeout=2)
+    time.sleep(1)
+    value = can_interface.get_signal_from_dictionary('vcu_regenState')
+    time.sleep(1)
+    print(value) 
+
+    try: 
+        assert(value == 1)
+    except AssertionError: 
+        print("-----------------Part 3 failed, continuing to Part 4-------------------")
+
+    ############################### Part 4 #############################
+    
+     # Update HFI messages
+    helper_functions.update_hfi_message(hfi_command_mux0, 6, 200)
+    helper_functions.update_hfi_message(hfi_command_mux1, 7, 200) 
+
+    # Add and send HIF messages 
+    can_interface.add_message_100Hz(hfi_command_mux0)
+    can_interface.add_message_100Hz(hfi_command_mux1)
+    print(hfi_command_mux0)
+    print(hfi_command_mux1)
+
+    # Wait 
+    time.sleep(1)
+
+    # Test and compare
+    can_interface.start_receive_and_sort(can_db=vcu_torque_db, timeout=2)
+    time.sleep(1)
+    value = can_interface.get_signal_from_dictionary('vcu_regenState')
+    time.sleep(1)
+    print(value)
+
+    try: 
+        assert(value == 0)
+    except AssertionError: 
+        print("-----------------Part 4 failed, continuing to Part 5-------------------")
+
+    ############################### Part 5 #############################
+    
+     # Update HFI messages
+    helper_functions.update_hfi_message(hfi_command_mux0, 6, 20)
+    helper_functions.update_hfi_message(hfi_command_mux1, 7, 20)
+
+    # Add and send HIF messages 
+    can_interface.add_message_100Hz(hfi_command_mux0)
+    can_interface.add_message_100Hz(hfi_command_mux1)
+    print(hfi_command_mux0)
+    print(hfi_command_mux1)
+
+    # Wait 
+    time.sleep(1)
+
+    # Test and compare
+    can_interface.start_receive_and_sort(can_db=vcu_torque_db, timeout=2)
+    time.sleep(1)
+    value = can_interface.get_signal_from_dictionary('vcu_regenState')
+    time.sleep(1)
+    print(value)
+
+    try: 
+        assert(value == 1)
+    except AssertionError: 
+        print("-----------------Part 5 failed-------------------")
+
     try: 
             assert (value == 0)
     finally: 
+            # Add this after the LAST part of the test
             can_interface.stop_receive_and_sort()
             can_interface.stop_send_and_update_100hz()
             del can_interface
